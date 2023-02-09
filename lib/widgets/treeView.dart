@@ -19,18 +19,9 @@ class TreeView extends StatelessWidget {
             children: <Widget>[
               Column(
                 children: [
-                  treenode.root == node ? Container( 
-                  ) : Transform.rotate(
-                    angle: level > 1 ? ((treenode.current_root.value > node.value)  ? 2.2 : 0.7) : ((treenode.root.value > node.value)  ? 2.2 : 0.7),
-                    //angle: (node.)  ? 2.2 : 0.7,
-                    child: const Icon(Icons.arrow_right_alt,
-                          color: Colors.black,
-                          size: 50,
-                          ),
-                  ),
                   Padding(
                     padding:
-                        const EdgeInsets.symmetric(vertical: 0, horizontal: 15),
+                        const EdgeInsets.symmetric(vertical: 0, horizontal: 5),
                     child: Container(
                       width: 50,
                       height: 50,
@@ -41,6 +32,7 @@ class TreeView extends StatelessWidget {
                       child: Center(
                         child: Text(
                           '${node.value}',
+                          overflow: TextOverflow.visible,
                           style: const TextStyle(
                             color: Colors.black,
                             fontSize: 20,
@@ -52,27 +44,44 @@ class TreeView extends StatelessWidget {
                 ],
               ),
               Row(
-                // mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  node.hasLeftChild
+                      ? Transform.rotate(
+                          angle: 2.2,
+                          child: const Icon(
+                            Icons.arrow_right_alt,
+                            color: Colors.black,
+                            size: 50,
+                          ),
+                        )
+                      : Container(),
+                  node.hasRightChild
+                      ? Transform.rotate(
+                          angle: 0.7,
+                          child: const Icon(
+                            Icons.arrow_right_alt,
+                            color: Colors.black,
+                            size: 50,
+                          ),
+                        )
+                      : Container(),
+                ],
+              ),
+              Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Container(
-                    //decoration: BoxDecoration(
-                       // border: Border.all(color: Colors.black, width: 1)),
                     padding:
-                        const EdgeInsets.symmetric(vertical: 0, horizontal: 20),
-                    // width: level == 0 ? 100 : (100 / level),
+                        const EdgeInsets.symmetric(vertical: 0, horizontal: 8),
                     child: _buildTree(node.left, level + 1),
                   ),
                   const SizedBox(
                     width: 8,
                   ),
                   Container(
-                    //decoration: BoxDecoration(
-                       // border: Border.all(color: Colors.green, width: 1)),
                     padding:
-                        const EdgeInsets.symmetric(vertical: 0, horizontal: 20),
-                    // width:level == 0 ? 100 : (100 / level),
+                        const EdgeInsets.symmetric(vertical: 0, horizontal: 8),
                     child: _buildTree(node.right, level + 1),
                   ),
                 ],
@@ -87,7 +96,6 @@ class TreeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final treeModel = Provider.of<TreeModel>(context);
-    // return treeModel.root == null ? Container() : _buildTree(treeModel.root, 0);
     return _buildTree(treeModel.root, 0);
   }
 }
