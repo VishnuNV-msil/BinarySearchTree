@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
+import 'package:simple_animations/simple_animations.dart';
 import '../provider/tree.dart';
 import '../model/tree_node.dart';
 
@@ -9,84 +9,94 @@ class TreeView extends StatelessWidget {
     if (node == null) {
       return Container();
     }
+
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
       child: SingleChildScrollView(
         scrollDirection: Axis.vertical,
         child: Consumer<TreeModel>(builder: (context, treenode, child) {
-          return Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: <Widget>[
-              Column(
-                children: [
-                  Padding(
-                    padding:
-                        const EdgeInsets.symmetric(vertical: 0, horizontal: 5),
-                    child: Container(
-                      width: 50,
-                      height: 50,
-                      decoration: const BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: Colors.amber,
-                      ),
-                      child: Center(
-                        child: Text(
-                          '${node.value}',
-                          overflow: TextOverflow.visible,
-                          style: const TextStyle(
-                            color: Colors.black,
-                            fontSize: 20,
+          return PlayAnimationBuilder<double>(
+            duration: const Duration(seconds: 4),
+            tween: Tween(begin: 0, end: 1),
+            builder: (context, opacity, child) {
+              return Opacity(
+                opacity: opacity,
+                 child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: <Widget>[
+                    Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 0, horizontal: 5),
+                          child: Container(
+                            width: 50,
+                            height: 50,
+                            decoration: const BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: Colors.amber,
+                            ),
+                            child: Center(
+                              child: Text(
+                                '${node.value}',
+                                overflow: TextOverflow.visible,
+                                style: const TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 20,
+                                ),
+                              ),
+                            ),
                           ),
                         ),
-                      ),
+                      ],
                     ),
-                  ),
-                ],
-              ),
-              Row(
-                children: <Widget>[
-                  node.hasLeftChild
-                      ? Transform.rotate(
-                          angle: 2.2,
-                          child: const Icon(
-                            Icons.arrow_right_alt,
-                            color: Colors.black,
-                            size: 50,
-                          ),
-                        )
-                      : Container(),
-                  node.hasRightChild
-                      ? Transform.rotate(
-                          angle: 0.7,
-                          child: const Icon(
-                            Icons.arrow_right_alt,
-                            color: Colors.black,
-                            size: 50,
-                          ),
-                        )
-                      : Container(),
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Container(
-                    padding:
-                        const EdgeInsets.symmetric(vertical: 0, horizontal: 8),
-                    child: _buildTree(node.left, level + 1),
-                  ),
-                  const SizedBox(
-                    width: 8,
-                  ),
-                  Container(
-                    padding:
-                        const EdgeInsets.symmetric(vertical: 0, horizontal: 8),
-                    child: _buildTree(node.right, level + 1),
-                  ),
-                ],
-              ),
-            ],
+                    Row(
+                      children: <Widget>[
+                        node.hasLeftChild
+                            ? Transform.rotate(
+                                angle: 2.2,
+                                child: const Icon(
+                                  Icons.arrow_right_alt,
+                                  color: Colors.black,
+                                  size: 50,
+                                ),
+                              )
+                            : Container(),
+                        node.hasRightChild
+                            ? Transform.rotate(
+                                angle: 0.7,
+                                child: const Icon(
+                                  Icons.arrow_right_alt,
+                                  color: Colors.black,
+                                  size: 50,
+                                ),
+                              )
+                            : Container(),
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Container(
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 0, horizontal: 8),
+                          child: _buildTree(node.left, level + 1),
+                        ),
+                        const SizedBox(
+                          width: 8,
+                        ),
+                        Container(
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 0, horizontal: 8),
+                          child: _buildTree(node.right, level + 1),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              );
+            },
           );
         }),
       ),
