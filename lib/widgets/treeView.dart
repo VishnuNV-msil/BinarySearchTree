@@ -4,6 +4,7 @@ import 'package:simple_animations/simple_animations.dart';
 import '../provider/tree.dart';
 import '../model/tree_node.dart';
 import 'circular_Container.dart';
+import 'arrow.dart';
 
 class TreeView extends StatelessWidget {
   Widget _buildTree(TreeNode node, int level) {
@@ -25,31 +26,8 @@ class TreeView extends StatelessWidget {
                  child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: <Widget>[
-                    circularcontainer(node, level),
-                    Row(
-                      children: <Widget>[
-                        node.hasLeftChild
-                            ? Transform.rotate(
-                                angle: 2.2,
-                                child: const Icon(
-                                  Icons.arrow_right_alt,
-                                  color: Colors.black,
-                                  size: 50,
-                                ),
-                              )
-                            : Container(),
-                        node.hasRightChild
-                            ? Transform.rotate(
-                                angle: 0.7,
-                                child: const Icon(
-                                  Icons.arrow_right_alt,
-                                  color: Colors.black,
-                                  size: 50,
-                                ),
-                              )
-                            : Container(),
-                      ],
-                    ),
+                    circularcontainer(node),
+                    angledArrow(node),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       crossAxisAlignment: CrossAxisAlignment.start,

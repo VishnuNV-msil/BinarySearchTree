@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import '../provider/tree.dart';
 import '../model/tree_node.dart';
 
-Widget circularcontainer(TreeNode node, int level) {
+Widget circularcontainer(TreeNode node) {
   return Column(
     children: [
       Padding(
