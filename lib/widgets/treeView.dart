@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:simple_animations/simple_animations.dart';
 import '../provider/tree.dart';
 import '../model/tree_node.dart';
+import 'circular_Container.dart';
 
 class TreeView extends StatelessWidget {
   Widget _buildTree(TreeNode node, int level) {
@@ -24,32 +25,7 @@ class TreeView extends StatelessWidget {
                  child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: <Widget>[
-                    Column(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.symmetric(
-                              vertical: 0, horizontal: 5),
-                          child: Container(
-                            width: 50,
-                            height: 50,
-                            decoration: const BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: Colors.amber,
-                            ),
-                            child: Center(
-                              child: Text(
-                                '${node.value}',
-                                overflow: TextOverflow.visible,
-                                style: const TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 20,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
+                    circularcontainer(node, level),
                     Row(
                       children: <Widget>[
                         node.hasLeftChild
