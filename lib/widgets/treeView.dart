@@ -32,19 +32,11 @@ class TreeView extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        Container(
-                          padding: const EdgeInsets.symmetric(
-                              vertical: 0, horizontal: 8),
-                          child: _buildTree(node.left, level + 1),
-                        ),
+                        childContainer(node, level, node.left),
                         const SizedBox(
                           width: 8,
                         ),
-                        Container(
-                          padding: const EdgeInsets.symmetric(
-                              vertical: 0, horizontal: 8),
-                          child: _buildTree(node.right, level + 1),
-                        ),
+                        childContainer(node, level, node.right),
                       ],
                     ),
                   ],
@@ -54,6 +46,13 @@ class TreeView extends StatelessWidget {
           );
         }),
       ),
+    );
+  }
+
+   Widget childContainer(TreeNode node, int level, TreeNode nodedirection) {
+    return Container(
+      padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 8),
+      child: _buildTree(nodedirection, level + 1),
     );
   }
 

@@ -23,6 +23,10 @@ class TreePage extends StatelessWidget {
               //height: 100,
               padding: const EdgeInsets.all(10),
               child: TextField(
+                onSubmitted: (value) {
+                  treeModel.insert(int.parse(_controller.text));
+                _controller.clear();
+                },
                 controller: _controller,
                 keyboardType: TextInputType.number,
               ),
